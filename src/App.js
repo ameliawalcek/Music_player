@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import Posts from './components/Posts/Posts'
 import Post from './components/Posts/Post/Post'
-import Form from './components/Form/Form'
+import FormSheet from './components/Form/FormSheet'
 import memories from './images/memories.png'
 import useStyles from './styles'
 import { Container, AppBar, Typography, Grow, Grid } from '@material-ui/core'
@@ -29,7 +29,7 @@ const App = () => {
                             <Posts />
                         </Grid>
                         <Grid item xs={12} sm={4}>
-                            <Form />
+                            <FormSheet />
                         </Grid>
                     </Grid>
                 </Container>
