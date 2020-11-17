@@ -1,8 +1,8 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import useStyles from './styles'
 import { TextField, Button, Typography, Paper } from '@material-ui/core'
 import FileBase from 'react-file-base64'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { createPost, updatePost } from '../../actions/posts'
 
 const FormSheet = ({ currentId, setCurrentId }) => {
@@ -17,6 +17,24 @@ const FormSheet = ({ currentId, setCurrentId }) => {
         selectedFile: ''
     })
 
+    //might be able to change this
+    const post = useSelector((state) => currentId ? state.posts.find(post => post._id === currentId) : null)
+
+    useEffect(() => {
+        if (post) setPostData(post)
+    }, [post])
+
+    const clear = () => {
+        setCurrentId(null)
+        setPostData({
+            creator: '',
+            title: '',
+            message: '',
+            tags: '',
+            selectedFile: ''
+        })
+    }
+
     const handleSubmit = (e) => {
         e.preventDefault()
 
@@ -25,10 +43,7 @@ const FormSheet = ({ currentId, setCurrentId }) => {
         } else {
             dispatch(createPost(postData))
         }
-    }
-
-    const clear = () => {
-
+        clear()
     }
 
     return (
@@ -39,7 +54,7 @@ const FormSheet = ({ currentId, setCurrentId }) => {
                 className={`${classes.root} ${classes.form}`}
                 onSubmit={handleSubmit}
             >
-                <Typography variant='h6'>Creating a Memory</Typography>
+                <Typography variant='h6'>{currentId ? 'Editing' : 'Creating'} a Memory</Typography>
                 <TextField
                     name='creator'
                     variant='outlined'
