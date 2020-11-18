@@ -9,16 +9,16 @@ const FormSheet = ({ currentId, setCurrentId }) => {
     const classes = useStyles()
     const dispatch = useDispatch()
 
-    const [postData, setPostData] = useState({
-        creator: '',
-        title: '',
-        message: '',
-        tags: '',
-        selectedFile: ''
-    })
+    const [postData, setPostData] =
+        useState({
+            creator: '',
+            title: '',
+            message: '',
+            tags: '',
+            selectedFile: ''
+        })
 
-    //might be able to change this
-    const post = useSelector((state) => currentId ? state.posts.find(post => post._id === currentId) : null)
+    const post = useSelector(state => currentId ? state.posts.find(post => post._id === currentId) : null)
 
     useEffect(() => {
         if (post) setPostData(post)
