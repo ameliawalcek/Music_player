@@ -1,41 +1,86 @@
 import React, { useEffect, useState } from 'react'
+import { useTheme } from './theme'
 import Posts from './components/Posts/Posts'
-import Post from './components/Posts/Post/Post'
 import FormSheet from './components/Form/FormSheet'
-import memories from './images/memories.png'
+import SnapShot from './images/SnapShot.png'
 import useStyles from './styles'
-import { Container, AppBar, Typography, Grow, Grid } from '@material-ui/core'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { getPosts } from './actions/posts'
+import { Container, AppBar, Grow, Grid, IconButton, ThemeProvider, Paper } from '@material-ui/core'
+import Brightness7Icon from '@material-ui/icons/Brightness7'
+import Brightness4Icon from '@material-ui/icons/Brightness4';
+import AddCircleIcon from '@material-ui/icons/AddCircle'
+import CancelIcon from '@material-ui/icons/Cancel'
 
 const App = () => {
     const classes = useStyles()
     const dispatch = useDispatch()
+
     const [currentId, setCurrentId] = useState(null)
+    const [displayForm, setForm] = useState(false)
+    const [darkState, setTheme] = useState(false)
+
+    const darkTheme = useTheme(darkState)
+    const posts = useSelector(state => state.posts)
+    const handleTheme = () => setTheme(!darkState)
 
     useEffect(() => {
         dispatch(getPosts())
     }, [currentId, dispatch])
 
     return (
-        <Container maxWidth='lg'>
-            <AppBar className={classes.appBar} position='static' color='inherit'>
-                <Typography className={classes.heading} variant='h2' align='center'>Memories</Typography>
-                <img className={classes.image} src={memories} alt='memories' height='60' />
-            </AppBar>
-            <Grow in>
-                <Container>
-                    <Grid container justify='space-between' alignItems='stretch' spacing={2}>
-                        <Grid item xs={12} sm={3}>
-                            <FormSheet currentId={currentId} setCurrentId={setCurrentId}/>
-                        </Grid>
-                        <Grid item xs={12} sm={8}>
-                            <Posts setCurrentId={setCurrentId}/>
-                        </Grid>
-                    </Grid>
-                </Container>
-            </Grow>
-        </Container>
+        <ThemeProvider theme={darkTheme}>
+            <Paper square className={classes.paper}>
+                <Paper square elevation={0}>
+                    <AppBar className={classes.appBar} 
+                    position='sticky' 
+                    color='inherit' elevation={0}>
+                        <img className={classes.image} src={SnapShot} alt='Pictori' height='60' />
+                        <IconButton
+                            color='primary'
+                            size='small'
+                            onClick={handleTheme}
+                        >
+                            {!darkState ?
+                                <Brightness7Icon color='primary' style={{ fontSize: '30px' }}/> :
+                                <Brightness4Icon color='primary' style={{ fontSize: '30px' }} />
+                            }
+                        </IconButton>
+                        
+                    </AppBar>
+                    <Grow in>
+                        <Container>
+                            <Grid container justify='space-between' alignItems='stretch' spacing={2}>
+                                <Grid item>
+                                    <Posts setCurrentId={setCurrentId} setForm={setForm} />
+                                </Grid>
+                            </Grid>
+                            {posts.length && !displayForm &&
+                                <IconButton
+                                    size='small'
+                                    onClick={() => setForm(true)}
+                                >
+                                    <AddCircleIcon className={classes.plus} style={{ fontSize: '65px' }} />
+                                </IconButton>
+                            }
+                            {displayForm &&
+                                <>
+                                    <FormSheet currentId={currentId} setForm={setForm} setCurrentId={setCurrentId} />
+                                    <IconButton
+                                        color='secondary'
+                                        size='small'
+                                        style={{ right: '-10px', top: '5px', position: 'absolute' }}
+                                        onClick={() => setForm(false)}
+                                    >
+                                        <CancelIcon className={classes.minus} style={{ fontSize: '65px' }} />
+                                    </IconButton>
+                                </>
+                            }
+                        </Container>
+                    </Grow>
+                </Paper>
+            </Paper>
+        </ThemeProvider>
     )
 }
 

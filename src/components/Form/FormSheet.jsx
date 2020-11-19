@@ -4,19 +4,14 @@ import { TextField, Button, Typography, Paper } from '@material-ui/core'
 import FileBase from 'react-file-base64'
 import { useDispatch, useSelector } from 'react-redux'
 import { createPost, updatePost } from '../../actions/posts'
+import RemoveCircleIcon from '@material-ui/icons/RemoveCircle'
 
-const FormSheet = ({ currentId, setCurrentId }) => {
+const FormSheet = ({ currentId, setCurrentId, setForm }) => {
     const classes = useStyles()
     const dispatch = useDispatch()
 
     const [postData, setPostData] =
-        useState({
-            creator: '',
-            title: '',
-            message: '',
-            tags: '',
-            selectedFile: ''
-        })
+        useState({ creator: '', title: '', message: '', tags: '', selectedFile: '' })
 
     const post = useSelector(state => currentId ? state.posts.find(post => post._id === currentId) : null)
 
@@ -26,13 +21,7 @@ const FormSheet = ({ currentId, setCurrentId }) => {
 
     const clear = () => {
         setCurrentId(null)
-        setPostData({
-            creator: '',
-            title: '',
-            message: '',
-            tags: '',
-            selectedFile: ''
-        })
+        setPostData({ creator: '', title: '', message: '', tags: '', selectedFile: '' })
     }
 
     const handleSubmit = (e) => {
@@ -44,24 +33,29 @@ const FormSheet = ({ currentId, setCurrentId }) => {
             dispatch(createPost(postData))
         }
         clear()
+        setForm(false)
     }
 
     return (
-        <Paper className={classes.paper}>
+        <Paper className={classes.paper} elevation={3} >
             <form
                 autoComplete='off'
                 noValidate
                 className={`${classes.root} ${classes.form}`}
                 onSubmit={handleSubmit}
             >
-                <Typography variant='h6'>{currentId ? 'Editing' : 'Creating'} a Memory</Typography>
+                <Typography
+                    variant='h6' color='primary'>
+                    {currentId ?
+                        'Editing Your' : 'Creating a'} Snap
+                    </Typography>
                 <TextField
                     name='creator'
                     variant='outlined'
                     label='Creator'
                     fullWidth
                     value={postData.creator}
-                    onChange={(e) => setPostData({ ...postData, creator: e.target.value })}
+                    onChange={e => setPostData({ ...postData, creator: e.target.value })}
                 />
                 <TextField
                     name='creator'
@@ -69,7 +63,7 @@ const FormSheet = ({ currentId, setCurrentId }) => {
                     label='Title'
                     fullWidth
                     value={postData.title}
-                    onChange={(e) => setPostData({ ...postData, title: e.target.value })}
+                    onChange={e => setPostData({ ...postData, title: e.target.value })}
                 />
                 <TextField
                     name='creator'
@@ -77,7 +71,7 @@ const FormSheet = ({ currentId, setCurrentId }) => {
                     label='Message'
                     fullWidth
                     value={postData.message}
-                    onChange={(e) => setPostData({ ...postData, message: e.target.value })}
+                    onChange={e => setPostData({ ...postData, message: e.target.value })}
                 />
                 <TextField
                     name='creator'
@@ -85,7 +79,7 @@ const FormSheet = ({ currentId, setCurrentId }) => {
                     label='Tags'
                     fullWidth
                     value={postData.tags}
-                    onChange={(e) => setPostData({ ...postData, tags: e.target.value.split(',') })}
+                    onChange={e => setPostData({ ...postData, tags: e.target.value.split(',') })}
                 />
                 <div className={classes.fileInput}>
                     <FileBase

@@ -11,4 +11,11 @@ export default makeStyles((theme) => ({
   actionDiv: {
     textAlign: 'center',
   },
+  backdrop: {
+    left: '50%',
+    top: '50%',
+    marginLeft: -75,
+    marginTop: -75,
+    position: 'absolute'
+  },
 }))

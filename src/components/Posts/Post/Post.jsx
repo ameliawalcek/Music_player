@@ -1,6 +1,6 @@
 import React from 'react'
 import useStyles from './styles'
-import { Card, CardActions, CardContent, CardMedia, Button, Typography } from '@material-ui/core'
+import { Card, CardActions, CardContent, CardMedia, IconButton, Typography, Menu, MenuItem } from '@material-ui/core'
 import ThumbUpAltIcon from '@material-ui/icons/ThumbUpAlt'
 import DeleteIcon from '@material-ui/icons/Delete'
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz'
@@ -8,9 +8,25 @@ import moment from 'moment'
 import { useDispatch } from 'react-redux'
 import { deletePost, likePost } from '../../../actions/posts'
 
-const Post = ({ post, setCurrentId }) => {
+const Post = ({ post, setCurrentId, setForm }) => {
     const classes = useStyles()
     const dispatch = useDispatch()
+    const [anchorEl, setAnchorEl] = React.useState(null)
+
+    const handleClick = e => setAnchorEl(e.currentTarget)
+    const handleClose = () => setAnchorEl(null)
+
+    const handleEdit = () => {
+        setCurrentId(post._id)
+        setForm(true)
+        handleClose()
+    }
+
+    const handleDelete = () => {
+        dispatch(deletePost(post._id))
+        handleClose()
+    }
+
     return (
         <Card className={classes.card}>
             <CardMedia className={classes.media} image={post.selectedFile} title={post.title} />
@@ -19,13 +35,18 @@ const Post = ({ post, setCurrentId }) => {
                 <Typography variant='body2'>{moment(post.createdAt).fromNow()}</Typography>
             </div>
             <div className={classes.overlay2}>
-                <Button
-                    style={{ color: 'white' }}
-                    size='small'
-                    onClick={() => setCurrentId(post._id)}
-                >
+                <IconButton onClick={handleClick} style={{ color: 'white' }}>
                     <MoreHorizIcon fontSize='default' />
-                </Button>
+                </IconButton >
+                <Menu
+                    anchorEl={anchorEl}
+                    keepMounted
+                    open={Boolean(anchorEl)}
+                    onClose={handleClose}
+                >
+                    <MenuItem onClick={handleEdit}>Edit</MenuItem>
+                    <MenuItem onClick={handleDelete}>Delete</MenuItem>
+                </Menu>
             </div>
             <div className={classes.details}>
                 <Typography variant='body2' color='textSecondary'>{post.tags.map(tag => `#${tag} `)}</Typography>
@@ -35,14 +56,11 @@ const Post = ({ post, setCurrentId }) => {
                 <Typography variant='body2' color='textSecondary' component='p'>{post.message}</Typography>
             </CardContent>
             <CardActions className={classes.cardActions}>
-                <Button size='small' color='primary' onClick={() => dispatch(likePost(post._id))}>
-                    <ThumbUpAltIcon fontSize='small' />
+                <IconButton size='small' color='primary' onClick={() => dispatch(likePost(post._id))}>
+                    <ThumbUpAltIcon fontSize='small' style={{ paddingRight: '10px', marginBottom: '2px' }} />
                     {post.likeCount}
-                </Button>
-                <Button size='small' color='primary' onClick={() => dispatch(deletePost(post._id))}>
-                    <DeleteIcon fontSize='small' />
-                    Delete
-                </Button>
+                </IconButton>
+                    <img className={classes.clearImg} src={`https://upload.wikimedia.org/wikipedia/commons/4/48/BLANK_ICON.png`} alt={``} />
             </CardActions>
         </Card >
     )
