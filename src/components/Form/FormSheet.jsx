@@ -4,7 +4,6 @@ import { TextField, Button, Typography, Paper } from '@material-ui/core'
 import FileBase from 'react-file-base64'
 import { useDispatch, useSelector } from 'react-redux'
 import { createPost, updatePost } from '../../actions/posts'
-import RemoveCircleIcon from '@material-ui/icons/RemoveCircle'
 
 const FormSheet = ({ currentId, setCurrentId, setForm }) => {
     const classes = useStyles()
@@ -47,12 +46,13 @@ const FormSheet = ({ currentId, setCurrentId, setForm }) => {
                 <Typography
                     variant='h6' color='primary'>
                     {currentId ?
-                        'Editing Your' : 'Creating a'} Snap
+                        'Edit' : 'Creating'} Your Snap
                     </Typography>
                 <TextField
                     name='creator'
                     variant='outlined'
                     label='Creator'
+                    color='primary'
                     fullWidth
                     value={postData.creator}
                     onChange={e => setPostData({ ...postData, creator: e.target.value })}
@@ -84,6 +84,7 @@ const FormSheet = ({ currentId, setCurrentId, setForm }) => {
                 <div className={classes.fileInput}>
                     <FileBase
                         type='file'
+                        color='secondary'
                         multiple={false}
                         onDone={({ base64 }) => setPostData({ ...postData, selectedFile: base64 })}
                     />

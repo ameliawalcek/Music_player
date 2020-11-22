@@ -2,10 +2,10 @@ import { createMuiTheme } from '@material-ui/core'
 
 export const useTheme = darkState => {
     const palletType = darkState ? "dark" : "light"
-    const mainPrimaryColor = darkState ? '#6200EE' : '#6200EE'
-    const mainSecondaryColor = darkState ? '#9f66b7' : '#BB86FC'
-    const texPrimary =  darkState ? '#9f66b7' : '#607d8b'
-    const textSecondary =  darkState ? '#9f66b7' : '#8133f1'
+    const mainPrimaryColor = darkState ? '#3DA485' : '#3DA485'
+    const mainSecondaryColor = darkState ? '#F46715' : '#F46715'
+    const texPrimary =  darkState ? '#d0d3d4' : '#1D4E89'
+    const textSecondary =  darkState ? '#d0d3d4' : '#626567'
 
     return createMuiTheme({
         palette: {

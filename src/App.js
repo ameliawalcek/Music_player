@@ -32,21 +32,21 @@ const App = () => {
         <ThemeProvider theme={darkTheme}>
             <Paper square className={classes.paper}>
                 <Paper square elevation={0}>
-                    <AppBar className={classes.appBar} 
-                    position='sticky' 
-                    color='inherit' elevation={0}>
-                        <img className={classes.image} src={SnapShot} alt='Pictori' height='60' />
+                    <AppBar className={classes.appBar}
+                        position='sticky'
+                        color='inherit' elevation={0}>
+                        <img className={classes.image} src={SnapShot} alt='Pictori' height='100' />
                         <IconButton
                             color='primary'
                             size='small'
                             onClick={handleTheme}
                         >
                             {!darkState ?
-                                <Brightness7Icon color='primary' style={{ fontSize: '30px' }}/> :
-                                <Brightness4Icon color='primary' style={{ fontSize: '30px' }} />
+                                <Brightness7Icon style={{ fontSize: '30px', color: '#F79256', position: 'absolute', left: '20px' }} /> :
+                                <Brightness4Icon style={{ fontSize: '30px', color: '#5BC2A3', position: 'absolute', left: '20px' }} />
                             }
                         </IconButton>
-                        
+
                     </AppBar>
                     <Grow in>
                         <Container>
@@ -72,7 +72,7 @@ const App = () => {
                                         style={{ right: '-10px', top: '5px', position: 'absolute' }}
                                         onClick={() => setForm(false)}
                                     >
-                                        <CancelIcon className={classes.minus} style={{ fontSize: '65px' }} />
+                                        <CancelIcon color='primary' className={classes.minus} style={{ fontSize: '65px' }} />
                                     </IconButton>
                                 </>
                             }

@@ -27,8 +27,8 @@ const Post = ({ post, setCurrentId, setForm }) => {
     }
 
     return (
-        <Card className={classes.card}>
-            <CardMedia className={classes.media} image={post.selectedFile} title={post.title} />
+        <Card raised={true} className={classes.card}>
+            <CardMedia component='image' className={classes.media} image={post.selectedFile} title={post.title} />
             <div className={classes.overlay}>
                 <Typography variant='h6'>{post.creator}</Typography>
                 <Typography variant='body2'>{moment(post.createdAt).fromNow()}</Typography>
@@ -43,19 +43,19 @@ const Post = ({ post, setCurrentId, setForm }) => {
                     open={Boolean(anchorEl)}
                     onClose={handleClose}
                 >
-                    <MenuItem onClick={handleEdit}>Edit</MenuItem>
+                    <MenuItem onClick={handleEdit} >Edit</MenuItem>
                     <MenuItem onClick={handleDelete}>Delete</MenuItem>
                 </Menu>
             </div>
             <div className={classes.details}>
-                <Typography variant='body2' color='textSecondary'>{post.tags.map(tag => `#${tag} `)}</Typography>
+                <Typography variant='body2' style={{color: '#808080'}}>{post.tags.map(tag => `#${tag} `)}</Typography>
             </div>
-            <Typography className={classes.title} variant='h5' gutterBottom>{post.title}</Typography>
+            <Typography className={classes.title} color='primary' variant='h5' gutterBottom>{post.title}</Typography>
             <CardContent>
-                <Typography variant='body2' color='textSecondary' component='p'>{post.message}</Typography>
+                <Typography className={classes.message} variant='body2' color='textSecondary' component='p'>{post.message}</Typography>
             </CardContent>
             <CardActions className={classes.cardActions}>
-                <IconButton size='small' color='primary' onClick={() => dispatch(likePost(post._id))}>
+                <IconButton size='small' color='secondary' onClick={() => dispatch(likePost(post._id))}>
                     <ThumbUpAltIcon fontSize='small' style={{ paddingRight: '10px', marginBottom: '2px' }} />
                     {post.likeCount}
                 </IconButton>

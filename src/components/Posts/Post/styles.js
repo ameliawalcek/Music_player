@@ -1,6 +1,6 @@
 import { makeStyles } from '@material-ui/core/styles'
 
-export default makeStyles({
+export default makeStyles((theme) => ({
   media: {
     height: 0,
     paddingTop: '80%',
@@ -50,6 +50,10 @@ export default makeStyles({
   },
   clearImg:{
     height: '10px',
-    width: '100px'
+    width: '100px',
+  },
+  message:{
+    position: 'relative',
+    bottom: '25px'
   }
-})
+}))
