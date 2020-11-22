@@ -17,7 +17,7 @@ const Posts = ({ setCurrentId, setForm }) => {
                 container alignItems='stretch' spacing={3}>
                 {posts.slice(0).reverse().map(post => (
                     <Grid key={post._id} item xs={12} sm={6} md={4} lg={3}>
-                        <Post post={post} setCurrentId={setCurrentId} setForm={setForm} />
+                        <Post post={post} setCurrentId={setCurrentId} setForm={setForm}/>
                     </Grid>
                 ))}
             </Grid>
