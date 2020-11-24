@@ -24,7 +24,7 @@ export default makeStyles(() => ({
     marginLeft: '-35px',
     color: "grey",
     '&:hover': {
-      color: '#3DA485',
+      color: '#00A2B8',
     },
   },
   minus: {

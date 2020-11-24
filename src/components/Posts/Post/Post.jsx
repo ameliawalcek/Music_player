@@ -28,7 +28,7 @@ const Post = ({ post, setCurrentId, setForm }) => {
 
     return (
         <Card raised={true} className={classes.card}>
-            <CardMedia component='image' className={classes.media} image={post.selectedFile} title={post.title} />
+            <CardMedia component='div' className={classes.media} image={post.selectedFile} title={post.title} />
             <div className={classes.overlay}>
                 <Typography variant='h6'>{post.creator}</Typography>
                 <Typography variant='body2'>{moment(post.createdAt).fromNow()}</Typography>

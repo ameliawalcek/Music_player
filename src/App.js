@@ -72,7 +72,7 @@ const App = () => {
                                         style={{ right: '-10px', top: '5px', position: 'absolute' }}
                                         onClick={() => setForm(false)}
                                     >
-                                        <CancelIcon color='primary' className={classes.minus} style={{ fontSize: '65px' }} />
+                                        <CancelIcon color='secondary' className={classes.minus} style={{ fontSize: '65px' }} />
                                     </IconButton>
                                 </>
                             }
