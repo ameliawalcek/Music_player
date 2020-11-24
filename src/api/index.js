@@ -1,6 +1,5 @@
 import axios from 'axios'
 //3
-
 const url = 'https://snapshot-share.herokuapp.com/posts'
 
 export const fetchPosts = () => axios.get(url)
