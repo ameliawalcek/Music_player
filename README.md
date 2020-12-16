@@ -44,10 +44,10 @@ Each photo has many interact options: edit, like, delete, tag, share
 	</thead>
 	<tr>
 		<td>
-      <img src="https://i.ibb.co/yQPCDGx/Post.png" alt="Post" border="0" width="250px">
+      <img src="https://i.ibb.co/yQPCDGx/Post.png" alt="Post" border="0" width="250px" height="420px">
 		</td>
 		<td>
-      <img src="https://i.ibb.co/xM8M6bG/Edit.png" alt="Edit"  border="0" width="270px" height="420px">
+      <img src="https://i.ibb.co/xM8M6bG/Edit.png" alt="Edit"  border="0" width="285px" height="420px">
 		</td>
 	</tr>
 </table>
